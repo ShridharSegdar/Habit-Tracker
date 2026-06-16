@@ -1,0 +1,123 @@
+{
+  "theme": {
+    "mode": "dark",
+    "archetype": "Archetype 7 (Electric & Neon) combined with Archetype 5 (Luxury) - Tactical Cyber-Minimalism",
+    "description": "Deep dark theme with neon accent (electric blue / violet), Apple-esque / Linear-style, sleek, premium, motivating, disciplined vibe. Obsidian blacks, sharp 1px electric blue/cyan borders, glowing active states. No broad gradients."
+  },
+  "typography": {
+    "fonts": {
+      "heading": {
+        "family": "Unbounded, sans-serif",
+        "weights": ["400", "700", "900"],
+        "usage": "Hero numbers, main countdown, large headers"
+      },
+      "body": {
+        "family": "Manrope, sans-serif",
+        "weights": ["400", "500", "600"],
+        "usage": "UI labels, general paragraphs, lists"
+      },
+      "mono": {
+        "family": "'JetBrains Mono', monospace",
+        "weights": ["400", "700"],
+        "usage": "Data labels, stats, code-like elements, overlines"
+      }
+    },
+    "hierarchy": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-none font-bold font-['Unbounded']",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl tracking-tight leading-tight font-semibold font-['Unbounded']",
+      "h3": "text-xl sm:text-2xl tracking-tight font-medium font-['Unbounded']",
+      "body": "text-sm sm:text-base leading-relaxed text-zinc-400 font-['Manrope']",
+      "labels": "text-xs tracking-[0.2em] uppercase font-['JetBrains_Mono'] text-zinc-500"
+    }
+  },
+  "colors": {
+    "background": {
+      "main": "#050505",
+      "card": "#0A0A0B",
+      "glass": "bg-black/60 backdrop-blur-xl"
+    },
+    "text": {
+      "primary": "#FAFAFA",
+      "secondary": "#A1A1AA",
+      "muted": "#52525B"
+    },
+    "accents": {
+      "primary": "#00F0FF",
+      "primary_glow": "rgba(0, 240, 255, 0.5)",
+      "secondary": "#7B61FF",
+      "secondary_glow": "rgba(123, 97, 255, 0.5)",
+      "success": "#00FF94",
+      "warning": "#FFB800",
+      "danger": "#FF2A2A"
+    },
+    "borders": {
+      "default": "rgba(255, 255, 255, 0.05)",
+      "active": "rgba(0, 240, 255, 0.3)"
+    }
+  },
+  "layout_and_spacing": {
+    "grid_strategy": "Control Room Mode (Bento Grid) with Asymmetry",
+    "columns": "grid-cols-1 md:grid-cols-8 lg:grid-cols-12",
+    "gap": "gap-4 lg:gap-6",
+    "spacing_scale": "p-4, p-6, p-8. Use ample padding in empty areas.",
+    "border_radius": "rounded-2xl for main cards, rounded-xl for inner elements, rounded-full for pills/buttons",
+    "glassmorphism": "backdrop-blur-xl bg-white/5 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+  },
+  "components": {
+    "centerpiece_3d": {
+      "library": "React Three Fiber (@react-three/fiber, @react-three/drei, three)",
+      "instructions": "Place a rotating low-poly geometric flame or trophy. Use <Environment preset='city'> or dark studio lighting. Bind the rotation/scale or emissive intensity to the 'streak' value. Add orbital rings using <Torus> geometry around the exam countdown text.",
+      "placement": "col-span-full md:col-span-8 lg:col-span-6 row-span-2 min-h-[300px] md:min-h-[400px] relative overflow-hidden rounded-2xl bg-[#0A0A0B] border border-white/5"
+    },
+    "cards": {
+      "style": "Flat 0A0A0B background with 1px border-white/5. On hover, use framer-motion to create a magnetic border-glow effect or 'Tracing Beam' (Aceternity style) using an animated radial gradient.",
+      "shadow": "shadow-lg shadow-black/50"
+    },
+    "habits_list": {
+      "style": "Vertical list, rounded-xl items with hover:bg-white/5 transition-colors p-3.",
+      "checkbox": "Custom animated checkbox using Framer Motion. On check -> pop scale (scale: 1.2 then 1) + trigger confetti burst (using canvas-confetti). Accent color #00F0FF.",
+      "placement": "col-span-full md:col-span-4 lg:col-span-3 row-span-2"
+    },
+    "heatmap": {
+      "style": "GitHub-style grid but neon themed. Empty: bg-white/5, Low: bg-[#00F0FF]/20, Med: bg-[#00F0FF]/50, High: bg-[#00F0FF]. Include hover tooltips for each square showing date and completed count.",
+      "placement": "col-span-full md:col-span-8 lg:col-span-6"
+    },
+    "percentage_ring": {
+      "style": "SVG based circular progress indicator. Track: stroke-white/10, Progress: stroke-[#00F0FF] with drop-shadow glow. Add a central large text percentage using Unbounded font."
+    },
+    "buttons": {
+      "primary": "bg-transparent border border-[#00F0FF] text-[#00F0FF] hover:bg-[#00F0FF] hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:shadow-[0_0_25px_rgba(0,240,255,0.6)] px-6 py-3 rounded-full font-['Manrope'] font-semibold"
+    }
+  },
+  "animations": {
+    "entrance": "Staggered fade-in and slide-up (y: 20 -> 0) for bento grid cards. Use framer-motion variants on a container with staggerChildren: 0.1.",
+    "hover": "Magnetic hover effect on cards, subtle scale-up on buttons (scale: 1.02).",
+    "microinteractions": "Checkbox confetti, streak counter ticking up on mount, countdown rings orbiting in 3D."
+  },
+  "media_and_assets": {
+    "images": {
+      "login_background": {
+        "url": "https://images.pexels.com/photos/6066072/pexels-photo-6066072.jpeg",
+        "description": "Abstract textured dark geometric background, use with a heavy black gradient overlay (bg-black/80) so text is readable."
+      },
+      "user_avatar": {
+        "url": "https://images.pexels.com/photos/17685845/pexels-photo-17685845.jpeg",
+        "description": "Premium professional user portrait for dashboard header."
+      }
+    },
+    "icons": {
+      "library": "lucide-react (primary) and react-icons (for FcGoogle)",
+      "installation_instructions": "yarn add react-icons @phosphor-icons/react canvas-confetti @react-three/fiber @react-three/drei three framer-motion clsx tailwind-merge"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Install required dependencies: `yarn add @react-three/fiber @react-three/drei three framer-motion canvas-confetti react-icons @phosphor-icons/react`",
+    "Implement Google Auth mock using localStorage. Show the login page first with the provided abstract background.",
+    "Use 'Unbounded' font for numbers/headings, 'Manrope' for body, and 'JetBrains Mono' for labels. Add Google Fonts import to index.html or global css.",
+    "Create the 3D Centerpiece in a distinct React component using React Three Fiber. Add a subtle ambient light, a point light (electric blue), and a low-poly rotating mesh (e.g., Icosahedron or Cone for a flame/trophy) that reacts to the streak count.",
+    "For the daily habits, implement a localized confetti effect. When a user clicks a checkbox, trigger a burst of cyan/violet particles using canvas-confetti or Framer Motion.",
+    "Ensure the layout is highly responsive. On mobile, stack everything cleanly. On desktop, maintain the 'Command Center' bento box look using the defined columns.",
+    "Apply `data-testid` to all interactive and key data elements (e.g., `data-testid='login-button'`, `data-testid='habit-checkbox-1'`).",
+    "Remember the 'Linear-style' aesthetic: dark backgrounds, subtle 1px borders, high-contrast text, glowing primary accents. AVOID flat white backgrounds or generic purple gradients."
+  ]
+}
