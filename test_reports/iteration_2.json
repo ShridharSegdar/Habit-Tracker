@@ -1,0 +1,28 @@
+{
+  "summary": "Iteration 2 — Backend was migrated from MongoDB to Supabase Postgres (Transaction Pooler) via SQLAlchemy async + Alembic. Re-ran full backend pytest suite (19/19 PASS) plus an extra Supabase persistence test (toggle habit → logout → re-login → toggle still applied via completed_dates array column). All frontend flows passed end-to-end via Playwright: admin login → dashboard with 'Admin' greeting & habit checkboxes → toggle habit visibly fills + survives full page reload (proves Supabase round-trip from FE) → Edit Goal modal updates to GMAT/2027-01-15 then reverts to CAT/2026-11-30 → ADD timetable entry 'Mock Set 1' appears → CSV upload (2 rows, mode=add) imports FE_Up1/FE_Up2 → logout redirects to /login → visiting /dashboard while logged out redirects to /login. No regressions vs. iteration 1. The DB migration is transparent at the API and UI layers.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "database.py correctly disables prepared statement caching (statement_cache_size=0) — mandatory for the Supabase Transaction Pooler since it doesn't support session-level prepared statements. Good.",
+    "RLS deny-all policy on all 4 tables (users, user_sessions, habits, timetable_entries) plus reliance on the postgres role to bypass — backend connects with the postgres superuser through the pooler, which inherently bypasses RLS. Safe today, but flag for future: if you ever swap the connection user to a non-superuser role (e.g., for principle-of-least-privilege), every query will start returning empty results without obvious errors. Consider documenting this explicitly in database.py.",
+    "completed_dates is stored as a Postgres array (text[]) and is read/written correctly through SQLAlchemy. Verified via toggle → logout → fresh login → completed_today still True. No timezone/serialization issues observed.",
+    "Cookie expires_at comparison: previous iteration handled tz-aware datetimes against Mongo's naive datetimes; with Postgres TIMESTAMPTZ this is now consistent — logout still returns 200 and subsequent /auth/me returns 401 cleanly.",
+    "Backend cold-start latency ~2-4s on the first Supabase connection (as the request_review note warned). Subsequent requests are sub-300ms. Pytest startup absorbed this — no test failed due to first-hit slowness.",
+    "(Carry-over from iteration 1, still applicable) — server.py is ~620 lines; consider splitting into routers/auth.py, routers/habits.py, routers/timetable.py when adding more features.",
+    "(Carry-over) CORS_ORIGINS=\"*\" with allow_credentials=True is unsafe for production. Works in preview only because of ingress.",
+    "(Carry-over) Dead `if False else` branch in weekly day-letter computation in habit_stats — cosmetic only."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (19/19 pytest + 1/1 persistence)", "frontend": "100% (7/7 flows)"},
+  "test_credentials": "Admin: admin@cattracker.app / Admin@2026 ✓. Aspirant: aspirant@cattracker.app / Aspirant@2026 ✓ (exercised in extra persistence test).",
+  "seed_data_creation": "Test artifacts created: a few ephemeral users via /auth/register (test_*, reg_*, dup_*, fe_*) — Supabase rows remain but are tagged with random UUID emails so they don't collide. After FE test: admin's exam restored to CAT/2026-11-30 (verified). FE timetable test artifacts (Mock Set 1, FE_Up1, FE_Up2) were cleaned up via API delete post-run. Aspirant's habit toggle from the extra persistence test was also reverted.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend now lives on Supabase Postgres via SQLAlchemy async; pooler URL in DATABASE_URL (transaction pooler, port 6543). DO NOT change statement_cache_size in database.py — it must be 0 for the pooler. Tests are in /app/backend/tests/backend_test.py, run with `pytest /app/backend/tests/backend_test.py -v`. Frontend testids are unchanged from iteration 1. For Playwright dashboard tests, wait for [data-testid^=habit-checkbox-] (up to 20s) instead of a fixed timeout — first Supabase cold connection can add ~2-4s to dashboard load. The Schedule ADD button (data-testid=open-add-form-btn) is in the lower section; always scroll_into_view_if_needed() before clicking, otherwise the form may not toggle visible on smaller viewports.",
+  "rca_of_the_issue": "N/A — no regressions found. The MongoDB → Supabase migration preserves the entire API surface (request/response shapes, cookies, status codes) and all previously passing tests still pass. The Supabase persistence specifically verified: aspirant habit toggle survives logout + fresh login + (in FE) full page reload, proving writes hit the database, not in-memory state."
+}
