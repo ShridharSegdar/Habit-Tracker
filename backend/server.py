@@ -365,16 +365,17 @@ async def habit_stats(request: Request):
         k = d.isoformat()
         heatmap.append({"date": k, "count": day_counts.get(k, 0), "total": total})
 
-    # Weekly (last 7 days)
+    # Weekly (last 7 days) — day letter mapped from Python weekday (Mon=0..Sun=6)
     weekly = []
-    day_letters = ["S", "M", "T", "W", "T", "F", "S"]
+    # Python weekday: Mon=0, Tue=1, Wed=2, Thu=3, Fri=4, Sat=5, Sun=6
+    day_letters = {0: "M", 1: "T", 2: "W", 3: "T", 4: "F", 5: "S", 6: "S"}
     for i in range(6, -1, -1):
         d = today - timedelta(days=i)
         k = d.isoformat()
         c = day_counts.get(k, 0)
         weekly.append({
             "date": k,
-            "day": day_letters[d.weekday() + 1 if d.weekday() < 6 else 0] if False else day_letters[(d.weekday() + 1) % 7],
+            "day": day_letters[d.weekday()],
             "pct": round((c / total) * 100) if total else 0,
         })
 
