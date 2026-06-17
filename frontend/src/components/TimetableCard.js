@@ -186,29 +186,29 @@ export default function TimetableCard({ schedule, onAdd, onRemove, onUpload }) {
 
   return (
     <motion.div
-      className="card-base p-6 lg:p-8 min-h-[300px] flex flex-col relative"
+      className="card-base p-5 sm:p-6 lg:p-8 min-h-[280px] flex flex-col relative w-full max-w-full"
       whileHover={{ y: -2 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
       data-testid="schedule-card"
     >
       <div className="tracing-beam" />
 
-      <div className="flex items-start justify-between mb-1">
-        <div>
-          <div className="label">TODAY'S BLOCKS</div>
-          <h2 className="font-display font-bold text-2xl tracking-tight mt-1">Schedule</h2>
+      <div className="flex items-start justify-between mb-1 gap-3 flex-wrap">
+        <div className="min-w-0">
+          <div className="label">TODAY&apos;S BLOCKS</div>
+          <h2 className="font-display font-bold text-xl sm:text-2xl tracking-tight mt-1">Schedule</h2>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={() => setShowUpload(true)}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-white/10 hover:border-cyber/40 hover:text-cyber font-mono text-[10px] tracking-wider transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-white/10 hover:border-cyber/40 hover:text-cyber font-mono text-[10px] tracking-wider transition-colors min-h-[40px]"
             data-testid="open-upload-btn"
           >
             <Upload className="w-3 h-3" /> IMPORT
           </button>
           <button
             onClick={() => setShowForm(s => !s)}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-cyber/10 border border-cyber/30 text-cyber hover:bg-cyber hover:text-black font-mono text-[10px] tracking-wider transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-cyber/10 border border-cyber/30 text-cyber hover:bg-cyber hover:text-black font-mono text-[10px] tracking-wider transition-colors min-h-[40px]"
             data-testid="open-add-form-btn"
           >
             <Plus className="w-3 h-3" /> ADD

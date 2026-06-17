@@ -1,2 +1,5 @@
-/* App styles intentionally minimal — Tailwind handles the rest. */
-.App { min-height: 100vh; }
+.App {
+    min-height: 100dvh;
+    width: 100%;
+    overflow-x: hidden;
+}

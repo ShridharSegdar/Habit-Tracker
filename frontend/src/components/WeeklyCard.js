@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 export default function WeeklyCard({ weekly }) {
   return (
     <motion.div
-      className="card-base p-6 min-h-[200px]"
+      className="card-base p-5 sm:p-6 min-h-[180px] w-full max-w-full"
       whileHover={{ y: -2 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
       data-testid="weekly-card"
     >
       <div className="tracing-beam" />
       <div className="label mb-4">WEEKLY CONSISTENCY</div>
-      <div className="flex items-end justify-between gap-2 h-32">
+      <div className="flex items-end justify-between gap-1.5 sm:gap-2 h-28 sm:h-32 w-full">
         {weekly.map((d, i) => (
-          <div key={d.date} className="flex-1 flex flex-col items-center gap-2">
+          <div key={d.date} className="flex-1 flex flex-col items-center gap-2 min-w-0">
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: `${Math.max(8, d.pct)}%` }}

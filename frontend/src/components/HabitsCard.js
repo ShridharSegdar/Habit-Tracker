@@ -36,20 +36,20 @@ export default function HabitsCard({ habits, toggleHabit, addHabit, removeHabit,
 
   return (
     <motion.div
-      className="card-base p-6 lg:p-8 min-h-[420px] flex flex-col"
+      className="card-base p-5 sm:p-6 lg:p-8 min-h-[400px] sm:min-h-[420px] flex flex-col w-full max-w-full"
       whileHover={{ y: -2 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
       data-testid="habits-card"
     >
       <div className="tracing-beam" />
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-between mb-2 gap-2 flex-wrap">
         <div className="label">DAILY HABITS</div>
-        <div className="font-mono text-xs text-cyber" data-testid="habits-completion">
+        <div className="font-mono text-[10px] sm:text-xs text-cyber" data-testid="habits-completion">
           {completedCount}/{habits.length} · {completionPct}%
         </div>
       </div>
 
-      <h2 className="font-display font-bold text-2xl tracking-tight mb-5">Today&apos;s Mission</h2>
+      <h2 className="font-display font-bold text-xl sm:text-2xl tracking-tight mb-5">Today&apos;s Mission</h2>
 
       <div className="h-1 rounded-full bg-white/5 overflow-hidden mb-5">
         <motion.div
@@ -82,7 +82,7 @@ export default function HabitsCard({ habits, toggleHabit, addHabit, removeHabit,
                     toggleHabit(h.habit_id);
                   }}
                   whileTap={{ scale: 0.85 }}
-                  className={`relative w-11 h-11 sm:w-7 sm:h-7 rounded-lg border-2 flex items-center justify-center transition-colors ${
+                  className={`relative w-11 h-11 sm:w-9 sm:h-9 rounded-lg border-2 flex items-center justify-center transition-colors shrink-0 ${
                     done ? "border-cyber bg-cyber" : "border-white/15 hover:border-cyber/60"
                   }`}
                   data-testid={`habit-checkbox-${h.habit_id}`}
@@ -96,7 +96,7 @@ export default function HabitsCard({ habits, toggleHabit, addHabit, removeHabit,
                         exit={{ scale: 0 }}
                         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                       >
-                        <Check className="w-4 h-4 text-black" strokeWidth={3} />
+                        <Check className="w-5 h-5 sm:w-4 sm:h-4 text-black" strokeWidth={3} />
                       </motion.span>
                     )}
                   </AnimatePresence>

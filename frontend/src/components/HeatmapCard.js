@@ -21,21 +21,21 @@ const SHADES = [
 export default function HeatmapCard({ heatmap }) {
   return (
     <motion.div
-      className="card-base p-6 lg:p-8 min-h-[260px] flex flex-col"
+      className="card-base p-5 sm:p-6 lg:p-8 min-h-[220px] flex flex-col w-full max-w-full"
       whileHover={{ y: -2 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
       data-testid="heatmap-card"
     >
       <div className="tracing-beam" />
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-between mb-2 gap-2 flex-wrap">
         <div className="label">30-DAY CONSISTENCY</div>
-        <div className="font-mono text-xs text-zinc-500">
+        <div className="font-mono text-[10px] sm:text-xs text-zinc-500">
           {heatmap.filter(d => d.count > 0).length}/30 ACTIVE
         </div>
       </div>
-      <h2 className="font-display font-bold text-2xl tracking-tight mb-6">Heatmap</h2>
+      <h2 className="font-display font-bold text-xl sm:text-2xl tracking-tight mb-5">Heatmap</h2>
 
-      <div className="grid grid-cols-10 gap-1.5 sm:gap-2 flex-1">
+      <div className="grid grid-cols-10 gap-1 sm:gap-1.5 md:gap-2 flex-1 w-full">
         {heatmap.map((d, i) => {
           const lvl = intensity(d.count, d.total);
           return (
@@ -45,7 +45,7 @@ export default function HeatmapCard({ heatmap }) {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.015, duration: 0.3 }}
               whileHover={{ scale: 1.3, zIndex: 5 }}
-              className={`aspect-square rounded-md ${SHADES[lvl]} cursor-pointer relative group`}
+              className={`aspect-square rounded-sm sm:rounded-md ${SHADES[lvl]} cursor-pointer relative group min-w-0`}
               data-testid={`heatmap-cell-${d.date}`}
             >
               <div className="absolute -top-9 left-1/2 -translate-x-1/2 px-2 py-1 rounded bg-black border border-white/10 font-mono text-[10px] text-cyber whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
@@ -56,10 +56,10 @@ export default function HeatmapCard({ heatmap }) {
         })}
       </div>
 
-      <div className="flex items-center justify-between mt-5 font-mono text-[10px] text-zinc-600">
+      <div className="flex items-center justify-between mt-4 sm:mt-5 font-mono text-[10px] text-zinc-600">
         <span>LESS</span>
         <div className="flex gap-1">
-          {SHADES.map((s, i) => <div key={i} className={`w-3 h-3 rounded ${s}`} />)}
+          {SHADES.map((s, i) => <div key={i} className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded ${s}`} />)}
         </div>
         <span>MORE</span>
       </div>

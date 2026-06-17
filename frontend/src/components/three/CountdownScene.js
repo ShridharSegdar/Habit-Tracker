@@ -25,8 +25,9 @@ export default function CountdownScene() {
   return h(Canvas, {
     dpr: [1, 1.5],
     camera: { position: [0, 0, 6], fov: 50 },
-    gl: { antialias: true, alpha: true },
-    style: { background: "transparent" },
+    gl: { antialias: true, alpha: true, powerPreference: "high-performance" },
+    resize: { scroll: false, debounce: { scroll: 0, resize: 100 } },
+    style: { background: "transparent", width: "100%", height: "100%", touchAction: "none" },
   },
     h("ambientLight", { intensity: 0.4 }),
     h("pointLight", { position: [3, 3, 3], intensity: 1.5, color: "#00F0FF" }),
